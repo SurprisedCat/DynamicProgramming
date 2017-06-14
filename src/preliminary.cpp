@@ -113,3 +113,32 @@ int longestZigZag(int sequence[],int len)
 	}
 	return result;
 }
+int maxDonations(int donations[],int vlen)
+{
+	int result = 0;
+	if(vlen == 1)
+		return result = donations[0];
+	int sum0[vlen-1];
+	memset(sum0,0,sizeof(int)*(vlen-1));
+	sum0[0] = donations[0];
+	sum0[1] = donations[1];
+	//start with 0
+	for(int i=2;i<vlen-1;i++)
+	{
+		sum0[i] = (sum0[i-2]+donations[i]>sum0[i-1])?sum0[i-2]+donations[i]:sum0[i-1];
+	}
+	std::cout<<sum0[vlen-2]<<" ";
+	int sum1[vlen];
+	memset(sum1,0,sizeof(int)*vlen);
+	sum1[0] = 0;
+	sum1[1] = donations[1];
+	sum1[2] = donations[2];
+	//start with 1
+	for(int i = 3;i<vlen;i++)
+	{
+		sum1[i] = (sum1[i-2]+donations[i]>sum1[i-1])?sum1[i-2]+donations[i]:sum1[i-1];
+	}
+	std::cout<<sum1[vlen-1]<<" ";
+	result = sum0[vlen-2]>sum1[vlen-1]?sum0[vlen-2]:sum1[vlen-1];
+	return result;
+}
